@@ -35,14 +35,9 @@ function render( $block_content, $block ) {
 	$processor = new \WP_HTML_Tag_Processor( $block_content );
 
 	$processor->next_tag( 'A' );
-	$processor->set_attribute( 'data-ga-event-label', $label );
-
-	$datalayer = [
-		'event'     => 'navigation',
-		'clickText' => $label,
-	];
-
-	$processor->set_attribute( 'data-datalayer', esc_attr( wp_json_encode( $datalayer ) ) );
+	$processor->set_attribute( 'data-ctaText', $label );
+	$processor->set_attribute( 'data-destinationLink', $url );
+	$processor->set_attribute( 'data-event', 'navigation' );
 
 	return $processor->get_updated_html();
 }
