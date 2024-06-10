@@ -34,6 +34,8 @@ class Datalayer {
 	public function __construct() {
 		$this->register_scripts();
 		$this->header_scripts();
+
+		add_filter( 'tenup_datalayer_data_values', [ $this, 'html_encode_fields' ] );
 	}
 
 	/**
@@ -72,6 +74,17 @@ class Datalayer {
 
 		// Return the prepared data.
 		return $this->data;
+	}
+
+	public function html_encode_fields( $data ) {
+
+		foreach ( $data as $key => $value ) {
+			if ( is_string( $value ) ) {
+				$data[ $key ] = html_entity_decode( $value );
+			}
+		}
+
+		return $data;
 	}
 
 	/**
@@ -268,7 +281,7 @@ class Datalayer {
 
 				if ( ! empty( $terms ) ) {
 					foreach ( $terms as $term ) {
-						$this->data[ $type ][] = apply_filters( 'tenup_datalayer_taxonomy_' . $type . '_name', $term->name, $term );
+						$this->data[ $type ][] = apply_filters( 'tenup_datalayer_taxonomy_' . $type . '_name', htmlspecialchars_decode( $term->name ), $term );
 					}
 				}
 			}
