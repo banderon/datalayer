@@ -34,8 +34,6 @@ class Datalayer {
 	public function __construct() {
 		$this->register_scripts();
 		$this->header_scripts();
-
-		add_filter( 'tenup_datalayer_data_values', [ $this, 'html_encode_fields' ] );
 	}
 
 	/**
@@ -74,17 +72,6 @@ class Datalayer {
 
 		// Return the prepared data.
 		return $this->data;
-	}
-
-	public function html_encode_fields( $data ) {
-
-		foreach ( $data as $key => $value ) {
-			if ( is_string( $value ) ) {
-				$data[ $key ] = html_entity_decode( $value );
-			}
-		}
-
-		return $data;
 	}
 
 	/**
