@@ -10,6 +10,7 @@ Features include:
      * Clickable image blocks
      * Query Block recirculation events
      * Post Terms block recirculation events
+     * Navigation block clicks
 
 <hr/>
 
