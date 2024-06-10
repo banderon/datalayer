@@ -374,16 +374,13 @@ class Datalayer {
 		if ( empty( $account_id ) ) {
 			return;
 		}
-
-		// Get the data.
-		$data = wp_json_encode( $this->get_data() );
 		
 		?>
 		<script>
 		// Map the datalayer values before initiation.
 		window.dataLayer      = window.dataLayer || [];
 		window.tenupDataLayer = window.tenupDataLayer || [];
-		window.tenupDataLayer = <?php echo htmlspecialchars_decode( $data ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Need the & in URL. ?>;
+		window.tenupDataLayer = <?php echo wp_json_encode( $this->get_data() ); ?>;
 		// Set the session storage for the URL parameters.
 		const params = ['utm_source', 'utm_medium', 'utm_campaign', 'gclid', 'fbclid', 'msclkid'];
 		params.forEach((param) => {
