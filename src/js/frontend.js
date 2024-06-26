@@ -49,10 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	// Add event listeners to all elements with a data-event attribute.
 	document.addEventListener('click', function (event) {
 		const clickedElement = event.target;
-		const dataEvent = clickedElement.getAttribute('data-event');
+		const eventElement   = clickedElement.closest('[data-event]');
 
+		// Bail if we can't find an element with a data-event attribute.
+		if (!eventElement) {
+			return;
+		}
+
+		// Send the event to Google Tag Manager.
+		const dataEvent = eventElement.getAttribute('data-event');
 		if (dataEvent) {
-			sendGTMEvent(clickedElement);
+			sendGTMEvent(eventElement);
 		}
 	});
 
